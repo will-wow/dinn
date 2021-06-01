@@ -25,8 +25,34 @@
 
     <title>dinn</title>
     <link rel="manifest" href="manifest.json" />
+
+    <meta
+      name="google-signin-client_id"
+      content="5689854381-pgpck0mjs9akfn16l4upivnevbu6m1mv.apps.googleusercontent.com"
+    />
   </head>
+
   <body>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyAe8ViitFvhkS0BINpmiNF-cuSZ6Udj8t4",
+        authDomain: "dinn-app.firebaseapp.com",
+        projectId: "dinn-app",
+        storageBucket: "dinn-app.appspot.com",
+        messagingSenderId: "5689854381",
+        appId: "1:5689854381:web:1f45079d48955732b2f924",
+        measurementId: "G-TPXN3D4W5P",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
     <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

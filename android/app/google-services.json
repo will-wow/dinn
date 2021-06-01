@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "5689854381",
+    "project_id": "dinn-app",
+    "storage_bucket": "dinn-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5689854381:android:4329acfa0fef1b17b2f924",
+        "android_client_info": {
+          "package_name": "me.dinn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5689854381-pgpck0mjs9akfn16l4upivnevbu6m1mv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDq7NwTJFWPfMBeVCpOUitXowP6byOQL_s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5689854381-pgpck0mjs9akfn16l4upivnevbu6m1mv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

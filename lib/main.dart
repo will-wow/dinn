@@ -1,83 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() => runApp(MyApp());
+import 'package:dinn/auth.dart';
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Startup Name Generator',
-        theme: ThemeData(primaryColor: Colors.white),
-        home: RandomWords());
-  }
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
 }
 
-class RandomWords extends StatefulWidget {
+class App extends StatefulWidget {
   @override
-  _RandomWordsState createState() => _RandomWordsState();
+  _AppState createState() => _AppState();
 }
 
-class _RandomWordsState extends State<RandomWords> {
-  final _suggestions = <WordPair>[];
-  final _saved = <WordPair>{};
-  final _biggerFont = TextStyle(fontSize: 18.0);
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: EdgeInsets.all(16.0),
-        itemBuilder: (context, i) {
-          if (i.isOdd) return Divider();
-
-          final index = i ~/ 2;
-
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-    return ListTile(
-        title: Text(pair.asPascalCase, style: _biggerFont),
-        trailing: Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
-            color: alreadySaved ? Colors.red : null),
-        onTap: () {
-          setState(() {
-            if (alreadySaved) {
-              _saved.remove(pair);
-            } else {
-              _saved.add(pair);
-            }
-          });
-        });
-  }
-
-  void _pushSaved() {
-    Navigator.of(context)
-        .push(MaterialPageRoute<void>(builder: (BuildContext context) {
-      final tiles = _saved.map((WordPair pair) {
-        return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
-      });
-
-      final divided = tiles.isNotEmpty
-          ? ListTile.divideTiles(context: context, tiles: tiles).toList()
-          : <Widget>[];
-
-      return Scaffold(
-          appBar: AppBar(title: Text('Saved Suggestions')),
-          body: ListView(children: divided));
-    }));
-  }
+class _AppState extends State<App> {
+  /// The future is part of the state of our widget. We should not call `initializeApp`
+  /// directly inside [build].
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text('Startup Name Generator'), actions: [
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)
-        ]),
-        body: _buildSuggestions());
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, snapshot) {
+        Widget home;
+
+        // Check for errors
+        if (snapshot.hasError) {
+          home = SomethingWentWrong();
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          home = Login();
+        } else {
+          // Otherwise, show something whilst waiting for initialization to complete
+          home = Loading();
+        }
+
+        return MaterialApp(title: 'Dinn', theme: ThemeData.dark(), home: home);
+      },
+    );
+  }
+}
+
+class SomethingWentWrong extends StatelessWidget {
+  @override
+  Widget build(BuildContext build) {
+    return Text('Something went wrong');
+  }
+}
+
+class Loading extends StatelessWidget {
+  @override
+  Widget build(BuildContext build) {
+    return Text('Loading...');
   }
 }
