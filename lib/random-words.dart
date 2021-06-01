@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+// final moviesRef = FirebaseFirestore.instance
+//     .collection('firestore-example-app')
+//     .withConverter<Movie>(
+//       fromFirestore: (snapshots, _) => Movie.fromJson(snapshots.data()!),
+//       toFirestore: (movie, _) => movie.toJson(),
+//     );
+
+// TODO: use lexorank: https://medium.com/whisperarts/lexorank-what-are-they-and-how-to-use-them-for-efficient-list-sorting-a48fc4e7849f
 
 class RandomWords extends StatefulWidget {
   @override
