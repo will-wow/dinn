@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import 'package:dinn/auth.dart';
+import 'package:dinn/views/auth.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

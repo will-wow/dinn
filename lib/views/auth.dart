@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:dinn/random-words.dart';
+import 'package:dinn/views/shopping_list_picker.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -23,7 +23,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    if (_user == null) {
+    final user = _user;
+    if (user == null) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
@@ -36,7 +37,7 @@ class _LoginState extends State<Login> {
       );
     }
 
-    return RandomWords();
+    return ShoppingListPicker(user: user);
   }
 
   Future<UserCredential?> _signInWithGoogle() async {
